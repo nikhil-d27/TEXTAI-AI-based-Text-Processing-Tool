@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="textai-icon" href="Logo1.jpeg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Paraphraser</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a0b34bac05.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background: linear-gradient(90deg, #181918, #1b1b1c);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-right: 1px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: rotate(360deg);
+        }
+
+        .header-textai {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .menu-toggle {
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            position: absolute;
+            left: 20px;
+        }
+
+        .dropdown-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            height: 100vh;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            color: #f1f4f7;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+            z-index: 150;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .dropdown-menu.active {
+            left: 0;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #ece5e5;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dropdown-menu a:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            transition: height 0.3s ease;
+            z-index: -1;
+        }
+
+        .dropdown-menu a:hover:before {
+            height: 100%;
+        }
+
+        .dropdown-menu a:hover {
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            color: #0e0d0d;
+            font-weight: 600;
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .menu-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            padding: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 200;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 20px;
+            flex-direction: row;
+            margin-top: 100px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 16px;
+            box-sizing: border-box;
+            resize: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        button {
+            background-color: #333433;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0c0c0c;
+        }
+
+        .bottom-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .bottom-toolbar .word-count {
+            font-size: 14px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .output-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+        }
+
+        .action-buttons {
+            display: none;
+            gap: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: #0c0c0c;
+            color: #fff;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        footer a {
+            color: #0e0e0e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Equalize textarea size */
+        .section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Added for menu bar toggle */
+        .dropdown-menu.active {
+            left: 0;
+        }
+
+        /* Added for button alignment */
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-group button:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+        }
+
+        #paraphraseOutput {
+            transition: opacity 0.3s ease;
+        }
+
+        #paraphraseOutput.loading {
+            opacity: 0.7;
+        }
+
+        /* Add these to your existing style section */
+        .loading {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
+        #paraphraseBtn:disabled {
+            background-color: #666;
+            cursor: wait;
+        }
+
+        .action-buttons {
+            display: none;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .action-buttons button {
+            padding: 8px 15px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-buttons button:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+
+        #paraphraseOutput {
+            transition: opacity 0.3s ease;
+        }
+
+        .word-count {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        /* Success animation for copy button */
+        @keyframes copySuccess {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .copy-success {
+            animation: copySuccess 0.3s ease;
+            color: #4CAF50;
+        }
+
+        .paraphrase-output-wrapper {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 16px;
+            background-color: white;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+
+        .highlighted-word {
+            color: #e74c3c;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .highlighted-word:hover {
+            background-color: #ffeaea;
+            border-radius: 3px;
+            padding: 0 2px;
+        }
+
+        /* Add to your existing style section */
+        .success-message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #outputWordCount {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .word-limit-warning {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .input-section {
+            position: relative;
+        }
+
+        .word-count.exceeded {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        textarea.exceeded {
+            border-color: #e74c3c;
+            font-size: 14px; /* Make text smaller when exceeded */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="menu-toggle" id="menuToggle">☰</div>
+    <div class="logo">
+        <img src="Logo (1).png" alt="Logo" class="logo-img">
+    </div>
+    <div class="header-textai">TextAI Paraphraser</div>
+    <div class="dropdown-menu" id="dropdownMenu">
+        <a href="Home.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="summarize.html"><i class="fa-brands fa-readme"></i> Summarizer</a>
+        <a href="paraphrase.html"><i class="fa-solid fa-pen-to-square"></i> Paraphrase</a>
+        <a href="ContactUs.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+        <a href="feedback.html"><i class="fa-regular fa-comment"></i> Feedback</a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="section">
+        <textarea id="inputText" placeholder="Enter or paste your text here... (125 words maximum)" oninput="updateInputWordCount()"></textarea>
+        <div class="bottom-toolbar">
+            <div class="word-count" id="inputWordCount">Words: 0</div>
+            <div class="button-group">
+                <button id="sampleTextBtn">Sample Text</button>
+                <button id="paraphraseBtn">Paraphrase</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section output-section">
+        <textarea id="paraphraseOutput" readonly placeholder="Your paraphrased text will appear here..."></textarea>
+        <div class="bottom-toolbar">
+            <div class="word-count" id="outputWordCount">Words: 0</div>
+            <div class="action-buttons" id="actionButtons">
+                <button onclick="copyText()"><i class="fa-regular fa-copy"></i></button>
+                <button onclick="downloadParaphrase()"><i class="fa-solid fa-arrow-down"></i></button>
+                <button onclick="clearText()"><i class="fa-regular fa-trash-can"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 TextAI. All rights reserved.</p>
+</footer>
+
+<script>
+// Menu bar toggle script
+document.getElementById("menuToggle").addEventListener('click', function() {
+    let dropdownMenu = document.getElementById("dropdownMenu");
+    dropdownMenu.classList.toggle("active");
+});
+
+// Close menu bar when clicked outside
+document.addEventListener('click', function(event) {
+    let dropdownMenu = document.getElementById("dropdownMenu");
+    let menuToggle = document.getElementById("menuToggle");
+    if (!dropdownMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        dropdownMenu.classList.remove("active");
+    }
+});
+
+// Word count function
+function countWords(text) {
+    return text.trim().split(/\s+/).length;
+}
+
+// Update input word count as user types
+function updateInputWordCount() {
+    let inputText = document.getElementById("inputText");
+    let text = inputText.value;
+    let wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+    let wordCountDisplay = document.getElementById("inputWordCount");
+    let warningElement = document.getElementById("wordLimitWarning");
+
+    // Create warning element if it doesn't exist
+    if (!warningElement) {
+        warningElement = document.createElement("div");
+        warningElement.id = "wordLimitWarning";
+        warningElement.className = "word-limit-warning";
+        wordCountDisplay.parentNode.insertBefore(warningElement, wordCountDisplay.nextSibling);
+    }
+
+    // Update word count and styling
+    if (wordCount > 125) {
+        wordCountDisplay.className = "word-count exceeded";
+        inputText.className = "exceeded";
+        warningElement.textContent = `Please limit your text to 125 words (current: ${wordCount})`;
+        inputText.style.fontSize = "14px"; // Reduce font size
+    } else {
+        wordCountDisplay.className = "word-count";
+        inputText.className = "";
+        warningElement.textContent = "";
+        inputText.style.fontSize = "16px"; // Reset font size
+    }
+
+    wordCountDisplay.textContent = `Words: ${wordCount}/125`;
+}
+
+// Set sample text when the button is clicked
+document.getElementById("sampleTextBtn").addEventListener('click', function() {
+    let sampleText = "Artificial Intelligence (AI) has transformed various industries, including healthcare, finance, and education. In healthcare, AI-powered tools help doctors diagnose diseases more accurately and develop personalized treatment plans. In finance, AI is used for fraud detection, risk assessment, and automated trading. In education, AI-driven platforms provide personalized learning experiences for students, helping them grasp complex concepts more effectively. As AI continues to advance, it raises ethical concerns about data privacy, job displacement, and algorithmic bias. However, with proper regulations and responsible use, AI has the potential to revolutionize industries and improve the quality of human life.";
+    document.getElementById("inputText").value = sampleText;
+    updateInputWordCount();
+});
+
+// Replace the existing checkServerConnection function with this simpler version
+async function checkServerConnection() {
+    try {
+        const response = await fetch('http://localhost:5505/health');
+        const data = await response.json();
+        return data.status === 'healthy' && data.dictionary_loaded;
+    } catch (error) {
+        console.error('Server check failed:', error);
+        return false;
+    }
+}
+
+// Replace the existing paraphrase button event listener with this version
+document.getElementById("paraphraseBtn").addEventListener('click', async function() {
+    const inputText = document.getElementById("inputText").value;
+    const wordCount = inputText.trim().split(/\s+/).filter(word => word.length > 0).length;
+    
+    if (wordCount > 125) {
+        alert("Please reduce your text to 125 words or less before paraphrasing.");
+        return;
+    }
+
+    const paraphraseBtn = this;
+    const outputArea = document.getElementById("paraphraseOutput");
+    const actionButtons = document.getElementById("actionButtons");
+    const outputWordCount = document.getElementById("outputWordCount");
+
+    if (!inputText.trim()) {
+        alert("Please enter some text to paraphrase");
+        return;
+    }
+
+    if (inputText.trim().split(/\s+/).length < 3) {
+        alert("Please provide at least 3 words for paraphrasing.");
+        return;
+    }
+
+    const serverRunning = await checkServerConnection();
+    if (!serverRunning) {
+        alert('Server is not running. Please start the server first.');
+        return;
+    }
+
+    // Show loading state
+    paraphraseBtn.disabled = true;
+    paraphraseBtn.textContent = "Paraphrasing...";
+    
+    try {
+        const response = await fetch('http://localhost:5505/api/paraphrase', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ text: inputText })
+        });
+
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            // Get or create the output div
+            let outputDiv = document.querySelector('.paraphrase-output-wrapper');
+            if (!outputDiv) {
+                outputDiv = document.createElement('div');
+                outputDiv.className = 'paraphrase-output-wrapper';
+                outputArea.parentNode.insertBefore(outputDiv, outputArea);
+                outputArea.style.display = 'none';
+            }
+
+            let text = data.result;
+            // Highlight changed words
+            data.changed_words.forEach(change => {
+                const regex = new RegExp(`\\b${change.replacement}\\b`, 'g');
+                text = text.replace(regex, `<span class="highlighted-word">${change.replacement}</span>`);
+            });
+
+            outputDiv.innerHTML = text;
+            actionButtons.style.display = "flex";
+            
+            // Update word count and stats
+            const words = data.result.trim().split(/\s+/).length;
+            outputWordCount.innerText = `Words: ${words} | Changed: ${data.statistics.words_changed} | Similarity: ${data.statistics.similarity_score}`;
+        } else {
+            alert(data.message || "Could not generate paraphrase");
+            const outputDiv = document.querySelector('.paraphrase-output-wrapper');
+            if (outputDiv) outputDiv.innerHTML = "";
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Could not connect to server. Please make sure the server is running.');
+        const outputDiv = document.querySelector('.paraphrase-output-wrapper');
+        if (outputDiv) outputDiv.innerHTML = "";
+    } finally {
+        // Reset button state
+        paraphraseBtn.disabled = false;
+        paraphraseBtn.textContent = "Paraphrase";
+    }
+});
+
+// Update the copy function to handle the new output format
+function copyText() {
+    const outputDiv = document.querySelector('.paraphrase-output-wrapper');
+    const text = outputDiv.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const copyBtn = document.querySelector('#actionButtons button:first-child');
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        setTimeout(() => {
+            copyBtn.innerHTML = originalText;
+        }, 2000);
+    });
+}
+
+// Update the download function
+function downloadParaphrase() {
+    const outputDiv = document.querySelector('.paraphrase-output-wrapper');
+    const text = outputDiv.textContent;
+    if (!text.trim()) return;
+    
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "paraphrased_text.txt";
+    link.click();
+}
+
+// Update the clear function
+function clearText() {
+    document.getElementById("inputText").value = '';
+    const outputDiv = document.querySelector('.paraphrase-output-wrapper');
+    if (outputDiv) {
+        outputDiv.innerHTML = '';  // Clear the content instead of removing the div
+    }
+    document.getElementById("inputWordCount").innerText = "Words: 0";
+    document.getElementById("outputWordCount").innerText = "Words: 0";
+    document.getElementById("actionButtons").style.display = "none";
+}
+
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 'Enter') {
+        document.getElementById("paraphraseBtn").click();
+    }
+});
+
+// Modified server status check
+window.addEventListener('load', async () => {
+    const serverRunning = await checkServerConnection();
+    if (!serverRunning) {
+        alert('Server not running or dictionary not loaded. Please ensure the server is started properly.');
+    }
+});
+</script>
+</body>
+</html>

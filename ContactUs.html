@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="textai-icon" href="Logo1.jpeg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - TextAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/a0b34bac05.js" crossorigin="anonymous"></script>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        nav {
+            display: flex;
+            align-items: center;
+            padding: 20px 30px;
+            background-color: rgb(0, 0, 0);
+            color: #fff;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Menu-bar on the left side */
+        nav .menu-bar {
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-right: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        nav .menu-bar:hover {
+            transform: scale(1.1);
+        }
+
+        nav .menu-bar i {
+            color: #fff;
+        }
+
+        /* Header TextAI and Logo */
+        .header-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .header-logo img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .header-logo img:hover {
+            transform: rotate(360deg);
+        }
+
+        .header-textai {
+            font-size: 2rem;
+            color: #f5f0f0;
+            z-index: 200;
+            text-align: center;
+        }
+
+        /* Dashboard Menu */
+        .dropdown-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            height: 100vh;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            color: #f1f4f7;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+            z-index: 150;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .dropdown-menu.active {
+            left: 0;
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #ece5e5;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dropdown-menu a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-menu a:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            transition: height 0.3s ease;
+            z-index: -1;
+        }
+
+        .dropdown-menu a:hover:before {
+            height: 100%;
+        }
+
+        .dropdown-menu a:hover {
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            color: #0e0d0d;
+            font-weight: 600;
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .menu-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            padding: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 200;
+        }
+        /* Contact Form Styles */
+        .contact-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 80px;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form {
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+            animation: floatUp 2.5s ease-in-out infinite;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .contact-form:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Floating animation */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .contact-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .contact-form .line {
+            width: 100%;
+            height: 1px;
+            background-color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #0c0c0c;
+            outline: none;
+        }
+
+        .contact-form button {
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #333;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 20px;
+            color: white;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="menu-bar" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <div class="header-logo">
+            <img src="Logo1.jpeg" alt="TextAI Logo">
+            <div class="header-textai">Contact Us</div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Menu -->
+    <div class="dropdown-menu" id="dropdownMenu">
+        <a href="Home.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="ContactUs.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+        <a href="summarize.html"><i class="fa-brands fa-readme"></i> Summarizer</a>
+        <a href="paraphrase.html"><i class="fa-solid fa-pen-to-square"></i> Paraphrase</a>
+        <a href="feedback.html"><i class="fa-regular fa-comment"></i> Feedback</a>
+    </div>
+
+    <!-- Contact Form Section -->
+    <div class="contact-container">
+        <div class="contact-form">
+            <h2>Contact Us</h2>
+            <p class="text-gray-600 mb-4">We would love to hear from you! Whether you have a question about our TextAI services, need assistance, or just want to share feedback, feel free to reach out.</p>
+
+            <form id="contactForm">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Your Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+                <div>
+                    <button type="submit">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>© 2025 TextAI. All rights reserved.</footer>
+
+    <script>
+        // Toggle dashboard menu
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('dropdownMenu');
+            const menuBar = document.querySelector('.menu-bar');
+            
+            // Only close if click is outside menu AND not on menu bar
+            if (!menu.contains(e.target) && !menuBar.contains(e.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+        // Handle form submission
+        document.querySelector('.contact-form form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                message: document.getElementById('message').value.trim()
+            };
+
+            // Validate form data
+            if (!formData.name || !formData.email || !formData.message) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+            try {
+                const response = await fetch('http://localhost:5503/submit-contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    alert(data.message);
+                    // Clear form
+                    this.reset();
+                } else {
+                    alert(data.message || 'An error occurred. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to send message. Please try again.');
+            } finally {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+            }
+        });
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,385 @@
+Column1,Column2
+above,over
+after,subsequently
+again,once more
+already,previously
+always,constantly
+angry,irate
+answer,respond
+art,craft
+ask,inquire;question
+before,previously
+begin,commence;initiate;launch
+below,under
+big,large;huge;enormous;gigantic
+book,publication
+boss,supervisor
+boy,lad;child
+bright,luminous
+build,construct;assemble;erect
+buy,purchase
+call,contact
+chance,opportunity
+change,adjust;modify;transform
+check,verify
+choose,select
+clean,sanitize;spotless
+close,near
+cold,chilly
+create,develop
+dangerous,hazardous
+dark,dim
+deal,handle
+destroy,demolish
+dirty,contaminated;filthy
+discover,uncover
+dislike,reject
+drink,ingest
+drive,navigate
+dry,arid
+dull,blunt
+early,premature
+easy,simple;straightforward;effortless;uncomplicated
+eat,consume
+employee,worker
+empty,vacant
+end,terminate
+enemy,opponent
+explore,investigate
+fail,collapse
+false,incorrect
+far,distant
+fast,quick;rapid;swift;speedy
+finally,ultimately
+find,discover
+fix,repair
+follower,supporter
+friend,companion
+full,occupied
+get,obtain
+girl,lass
+give,provide
+goal,objective
+group,team
+happy,joyful;delighted;pleased;content
+hard,difficult;firm
+hate,despise
+heavy,weighty
+help,aid;assist;support
+high,elevated
+hot,warm
+idea,concept;notion
+important,crucial;essential;vital;significant
+inside,within
+invent,devise
+job,occupation
+keep,retain
+late,delayed
+later,afterward
+leader,chief
+learn,acquire
+leave,depart
+left,departed
+lie,falsehood
+light,illumination
+like,prefer
+live,reside
+look,glance
+lose,fail;misplace
+love,adore
+low,minimal
+make,create
+man,male
+maybe,possibly
+meet,encounter
+move,relocate
+movie,film
+music,melody
+need,require
+never,not ever
+new,recent
+no,negative
+now,currently
+often,frequently
+old,ancient
+outside,beyond
+pay,compensate
+photo,photograph
+picture,image
+plan,strategy
+play,perform
+poor,impoverished;terrible;awful;horrible
+problem,issue
+rarely,seldom
+result,outcome
+rich,wealthy
+right,correct
+run,operate
+sad,unhappy;gloomy;melancholy;depressed
+safe,secure
+say,state
+see,observe
+sharp,pointed
+show,demonstrate;illustrate
+sleep,rest
+slow,sluggish;leisurely;unhurried;gradual
+small,tiny;little;miniature;compact
+smart,intelligent;clever;brilliant;wise
+soft,gentle
+solution,resolution
+sometimes,occasionally
+song,tune
+soon,shortly
+start,commence;initiate;launch
+stay,remain
+still,yet
+stop,cease
+story,narrative
+strong,powerful
+student,learner
+study,examine
+talk,speak
+task,assignment
+teach,educate
+teacher,instructor
+tell,inform
+test,examination
+then,subsequently
+thick,dense
+thin,slim
+think,consider;reflect
+train,coach
+travel,journey
+true,accurate
+truth,reality
+try,attempt
+use,utilize
+wait,pause
+wake,arise
+walk,stroll
+watch,monitor
+weak,fragile
+wet,damp
+win,prevail;succeed;triumph
+woman,female
+work,employment;job
+yes,affirmative
+young,youthful
+analyze,examine;evaluate;assess
+approve,authorize;endorse;validate
+arrive,reach;get to;appear
+avoid,prevent;evade;dodge
+begin,commence;initiate;launch
+blend,mix;combine;merge
+break,fracture;shatter;crack
+brief,short;concise;succinct
+build,construct;assemble;erect
+cancel,revoke;abort;terminate
+clarify,explain;elucidate;simplify
+compare,contrast;evaluate;analyze
+complete,finish;conclude;finalize
+connect,link;join;attach
+correct,fix;amend;rectify
+decide,determine;resolve;choose
+define,describe;identify;explain
+delay,postpone;defer;reschedule
+deliver,provide;supply;distribute
+design,create;devise;develop
+destroy,ruin;demolish;annihilate
+develop,grow;evolve;advance
+differ,vary;diverge;contrast
+discuss,debate;talk about;deliberate
+earn,gain;receive;acquire
+encourage,motivate;inspire;urge
+enjoy,like;appreciate;relish
+explain,clarify;elucidate;interpret
+finish,complete;conclude;finalize
+follow,pursue;obey;track
+gather,collect;assemble;accumulate
+handle,manage;control;deal with
+improve,enhance;upgrade;refine
+increase,raise;amplify;escalate
+inform,notify;tell;brief
+inspire,motivate;encourage;stimulate
+join,connect;unite;merge
+keep,retain;maintain;preserve
+lead,guide;direct;manage
+learn,study;grasp;understand
+listen,hear;attend;pay attention
+move,relocate;shift;transfer
+observe,watch;monitor;notice
+offer,provide;suggest;propose
+organize,arrange;coordinate;structure
+perform,execute;carry out;accomplish
+prepare,get ready;arrange;organize
+protect,guard;shield;defend
+reach,arrive;attain;approach
+remember,recall;recollect;reminisce
+repair,fix;mend;restore
+request,ask;solicit;petition
+respect,admire;esteem;honor
+return,go back;revert;repay
+save,rescue;preserve;conserve
+search,seek;explore;hunt
+select,choose;pick;elect
+sell,trade;vend;market
+separate,divide;split;isolate
+serve,assist;help;cater
+share,divide;distribute;partake
+shout,yell;scream;exclaim
+smile,grin;beam;smirk
+solve,resolve;decipher;unravel
+spend,expend;invest;allocate
+stand,rise;endure;tolerate
+startle,surprise;shock;alarm
+steal,rob;pilfer;thieve
+stop,halt;cease;discontinue
+struggle,fight;strive;grapple
+suggest,propose;recommend;imply
+support,back;uphold;sustain
+surprise,astonish;amaze;startle
+survive,endure;outlast;withstand
+suspect,distrust;doubt;mistrust
+tease,taunt;mock;provoke
+thank,appreciate;acknowledge;recognize
+trust,believe;rely;confide
+understand,comprehend;grasp;perceive
+use,employ;utilize;apply
+value,appreciate;esteem;treasure
+visit,attend;see;tour
+wait,pause;linger;delay
+warn,alert;caution;advise
+waste,squander;misuse;dissipate
+watch,observe;view;monitor
+welcome,greet;receive;embrace
+whisper,murmur;mutter;breathe
+worry,fret;agonize;stress
+write,compose;pen;inscribe
+yell,shout;scream;holler
+yield,produce;surrender;concede
+zone,area;region;district
+good,great;excellent;wonderful;fantastic
+bad,poor;terrible;awful;horrible
+beautiful,gorgeous;stunning;lovely;attractive
+interesting,fascinating;engaging;captivating;intriguing
+boring,dull;tedious;monotonous;uninteresting
+transformed,revolutionized;changed;modernized
+industries,sectors;fields;domains
+healthcare,medical field;health sector;medical care
+AI-powered tools,machine learning tools
+diagnose,identify
+diseases,illnesses
+accurately,precisely
+develop,create
+personalized treatment plans,customized treatment strategies
+finance,banking sector
+fraud detection,scam identification
+risk assessment,risk evaluation
+automated trading,robotic trading
+education,learning sector
+AI-driven platforms,machine learning-based platforms
+personalized learning experiences,customized educational experiences
+grasp,understand
+complex concepts,complicated ideas
+effectively,efficiently
+ethical concerns,moral issues
+data privacy,information security
+job displacement,employment loss
+algorithmic bias,algorithmic prejudice
+regulations,rules
+responsible use,ethical application
+revolutionize,transform
+improve,enhance;upgrade;boost;advance
+quality of human life,living standards
+setting,going down
+behind,at the rear of
+hills,mountains
+casting,projecting
+golden,amber
+glow,shine
+quiet,peaceful
+village,town
+chirped,called
+evening,night
+songs,tunes
+gentle,soft
+breeze,wind
+rustle,whisper
+trees,woods
+walked,strolled
+home,residence
+work,employment;job
+laughter,joyful sounds
+filling,occupying
+air,atmosphere
+children,kids
+played,had fun
+small,tiny;little;miniature;compact
+park,playground
+smell,aroma
+freshly,cooked
+cooked,prepared
+drifted,moved
+nearby,close
+houses,homes
+promising,indicating
+warm,hot
+hearty,wholesome
+dinner,meal
+simple,plain
+peaceful,calm
+moment,instance
+made,caused
+everyone,everybody
+feel,experience
+at ease,relaxed
+bright,shiny
+sunny,clear
+day,daytime;daily routine;sunlight hours
+the day,the whole day
+sky,heavens
+blue,azure
+white,pale
+clouds,fluffy formations
+floated,drifted
+dog,puppy
+ran,raced
+across,over
+grass,lawn
+chasing,following
+butterfly,inse
+boy,lad;child
+sat,rested
+bench,seat
+eating,consuming
+ice cream,frozen dessert
+wind,breeze
+blew,pushed
+softly,gently
+leaves,folliage
+rustle,whisper
+everything,all things
+felt,appeared
+calm,serene
+happy,joyful
+routines,rituals
+people,individuals
+start,begin
+cup,grab
+rush,hurrying
+traffic,congestion
+crowded,overcrowded
+jams,congestion
+commutes,commuting
+keep,busy with
+relaxing,unwinding
+watching,watching
+TV,television
+scrolling,browsing
+walk,stroll
+unwind,relax
+exhaustion,fatigue
+kicks in,sets in
+fast,quickly
+joy,happy
+worthwhile,worth it

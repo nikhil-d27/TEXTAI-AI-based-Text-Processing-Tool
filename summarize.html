@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="textai-icon" href="Logo1.jpeg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Summarizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a0b34bac05.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(90deg, #181918, #1b1b1c);
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: rotate(360deg);
+        }
+
+        .header-textai {
+            font-size: 2rem;
+            color: #f5f0f0;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+        }
+
+        .dropdown-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            height: 100vh;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            color: #f1f4f7;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+            z-index: 150;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .dropdown-menu.active {
+            left: 0;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #ece5e5;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dropdown-menu a:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            transition: height 0.3s ease;
+            z-index: -1;
+        }
+
+        .dropdown-menu a:hover:before {
+            height: 100%;
+        }
+
+        .dropdown-menu a:hover {
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            color: #0e0d0d;
+            font-weight: 600;
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .menu-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            padding: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 200;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 20px;
+            flex-direction: row;
+            margin-top: 100px;
+        }
+
+        .section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 120px;
+            height: 8px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            transition: background 0.3s;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #101010;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #0c0c0c;
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 16px;
+            box-sizing: border-box;
+            resize: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        button {
+            background-color: #0c0c0c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #333433;
+        }
+
+        .bottom-toolbar {
+            display: flex;
+            justify-content: flex-end; /* Align buttons to the right */
+            align-items: center;
+            gap: 10px; /* Add spacing between the buttons */
+            width: 100%;
+        }
+
+        .word-count-container {
+            display: flex;
+            justify-content: flex-start; /* Align word count to the left */
+            width: 100%;
+        }
+
+        .output-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+        }
+
+        .radio-buttons {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            color:#0c0c0c
+        }
+
+        .summary-word-count {
+            margin-top: 10px;
+        }
+
+        .action-buttons {
+            position: absolute;
+            bottom: 0px;
+            left: 450px; /* Adjusted position more to the right */
+            display: none;
+            gap: 10px;
+            padding: -5px -10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: #0c0c0c;
+            color: #fff;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        footer a {
+            color: #0e0e0e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .sample-text-button {
+            background-color: #0c0c0c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .sample-text-button:hover {
+            background-color:#333433;
+        }
+
+        .word-limit-warning {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .word-count.exceeded {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        textarea.exceeded {
+            border-color: #e74c3c;
+            font-size: 14px;
+        }
+
+        button:disabled {
+            background-color: #cccccc !important;
+            cursor: not-allowed !important;
+        }
+    </style>
+</head>
+<body>
+   <header>
+        <div class="menu-toggle" id="menuToggle">☰</div>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="Home.html"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="summarize.html"><i class="fa-brands fa-readme"></i> Summarizer</a>
+            <a href="paraphrase.html"><i class="fa-solid fa-pen-to-square"></i> Paraphrase</a>
+            <a href="ContactUs.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+            <a href="feedback.html"><i class="fa-regular fa-comment"></i> Feedback</a>
+        </div>
+        <div class="logo">
+            <img src="Logo (1).png" alt="Logo" class="logo-img">
+            <div class="header-textai">TextAI Summarizer</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <div class="slider-container">
+                <span>Short</span>
+                <input type="range" min="1" max="5" value="3" class="slider" id="summaryLength">
+                <span>Long</span>
+            </div>
+            <textarea id="inputText" placeholder="Enter or paste your text here... (150 words maximum)" oninput="updateInputWordCount()"></textarea>
+            <div class="bottom-toolbar">
+                <div class="word-count-container">
+                    <span id="inputWordCount">Words: 0/150</span>
+                </div>
+                <button id="summarizeBtn">Summarize</button>
+                <button class="sample-text-button" id="sampleTextButton">Sample Text</button>
+            </div>
+        </div>
+
+        <div class="section output-section">
+            <div class="radio-buttons">
+                <label><input type="radio" name="summaryType" value="general" checked> General</label>
+                <label><input type="radio" name="summaryType" value="bullets"> Show Bullets</label>
+            </div>
+            <textarea id="summaryOutput" readonly></textarea>
+            <div class="summary-word-count" id="summaryWordCount">Summary Words: 0</div>
+            <div class="action-buttons" id="actionButtons" style="display: none;">
+                <button onclick="copyText()"><i class="fa-regular fa-copy"></i></button>
+                <button onclick="downloadSummary()"><i class="fa-solid fa-arrow-down"></i></button>
+                <button onclick="clearText()"><i class="fa-regular fa-trash-can"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 TextAI. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Event listener for summarization
+        document.getElementById("summarizeBtn").addEventListener("click", async function () {
+            const inputText = document.getElementById("inputText").value;
+            const wordCount = inputText.trim().split(/\s+/).filter(word => word.length > 0).length;
+
+            if (wordCount > 150) {
+                alert("Please reduce your text to 150 words before summarizing.");
+                return;
+            }
+
+            if (wordCount === 0) {
+                alert("Please enter some text to summarize.");
+                return;
+            }
+
+            const summaryLength = document.getElementById("summaryLength").value;
+            const summaryType = document.querySelector('input[name="summaryType"]:checked').value;
+            
+            // Disable button and show loading state
+            this.disabled = true;
+            this.textContent = "Summarizing...";
+            document.getElementById("summaryOutput").value = "Generating summary...";
+
+            try {
+                const response = await fetch("http://localhost:5000/summarize", {
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({ 
+                        text: inputText, 
+                        length: summaryLength, 
+                        format: summaryType 
+                    })
+                });
+
+                const data = await response.json();
+                console.log("Response from server:", data);
+
+                if (data.status === 'success' && data.summary) {
+                    document.getElementById("summaryOutput").value = data.summary;
+                    document.getElementById("summaryWordCount").innerText = `Summary Words: ${data.word_count}`;
+                    document.getElementById("actionButtons").style.display = "flex";
+                } else {
+                    document.getElementById("summaryOutput").value = data.message || "Error generating summary.";
+                    document.getElementById("summaryWordCount").innerText = "Summary Words: 0";
+                }
+            } catch (error) {
+                console.error("Error during API call:", error);
+                document.getElementById("summaryOutput").value = "There was an error summarizing the text. Please try again.";
+            } finally {
+                // Re-enable button and restore original text
+                this.disabled = false;
+                this.textContent = "Summarize";
+            }
+        });
+
+        // Event listener to update word count dynamically while typing
+        function updateInputWordCount() {
+            let inputText = document.getElementById("inputText");
+            let text = inputText.value;
+            let wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+            let wordCountDisplay = document.getElementById("inputWordCount");
+            let warningElement = document.getElementById("wordLimitWarning");
+            let summarizeBtn = document.getElementById("summarizeBtn");
+
+            // Create warning element if it doesn't exist
+            if (!warningElement) {
+                warningElement = document.createElement("div");
+                warningElement.id = "wordLimitWarning";
+                warningElement.className = "word-limit-warning";
+                wordCountDisplay.parentNode.insertBefore(warningElement, wordCountDisplay.nextSibling);
+            }
+
+            // Update word count and styling
+            if (wordCount > 150) {
+                wordCountDisplay.className = "word-count exceeded";
+                inputText.className = "exceeded";
+                warningElement.textContent = "Please reduce your text to 150 words before summarizing";
+                inputText.style.fontSize = "14px"; // Reduce font size
+                summarizeBtn.disabled = true; // Disable the summarize button
+                summarizeBtn.style.opacity = "0.5"; // Make button appear disabled
+            } else {
+                wordCountDisplay.className = "word-count";
+                inputText.className = "";
+                warningElement.textContent = "";
+                inputText.style.fontSize = "16px"; // Reset font size
+                summarizeBtn.disabled = false; // Enable the summarize button
+                summarizeBtn.style.opacity = "1"; // Make button appear normal
+            }
+
+            wordCountDisplay.textContent = `Words: ${wordCount}/150`;
+        }
+
+        // Toggle dashboard menu
+        document.getElementById("menuToggle").addEventListener("click", function () {
+            const menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.body.addEventListener('click', (e) => {
+            const menu = document.getElementById('dropdownMenu');
+            if (!menu.contains(e.target) && !e.target.closest('.menu-toggle')) {
+                menu.classList.remove('active');
+            }
+        });
+
+        function copyText() {
+            const summary = document.getElementById("summaryOutput").value;
+            navigator.clipboard.writeText(summary).then(() => {
+                alert("Summary copied to clipboard!");
+            });
+        }
+
+        function downloadSummary() {
+            const summary = document.getElementById("summaryOutput").value;
+            const blob = new Blob([summary], { type: "text/plain" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "summary.txt";
+            link.click();
+        }
+
+        function clearText() {
+            document.getElementById("inputText").value = "";
+            document.getElementById("summaryOutput").value = "";
+            document.getElementById("inputWordCount").textContent = "Words: 0/150";
+            document.getElementById("summaryWordCount").innerText = "Summary Words: 0";
+            document.getElementById("actionButtons").style.display = "none";
+        }
+
+        // Sample text insertion
+        document.getElementById("sampleTextButton").addEventListener("click", function () {
+            let sampleText = "Artificial Intelligence (AI) has transformed various industries, including healthcare, finance, and education. In healthcare, AI-powered tools help doctors diagnose diseases more accurately and develop personalized treatment plans. In finance, AI is used for fraud detection, risk assessment, and automated trading. In education, AI-driven platforms provide personalized learning experiences for students, helping them grasp complex concepts more effectively. As AI continues to advance, it raises ethical concerns about data privacy, job displacement, and algorithmic bias. However, with proper regulations and responsible use, AI has the potential to revolutionize industries and improve the quality of human life. The integration of AI technologies has led to increased efficiency, reduced human error, and innovative solutions across sectors. Organizations worldwide are investing heavily in AI research and development, recognizing its potential to drive future growth and competitive advantage. Despite implementation challenges, the benefits of AI adoption continue to outweigh the initial obstacles.";
+            document.getElementById("inputText").value = sampleText;
+            updateInputWordCount();
+        });
+        
+        document.getElementById("paraphraseBtn").addEventListener('click', async function() {
+            const inputText = document.getElementById("inputText").value;
+            const wordCount = inputText.trim().split(/\s+/).filter(word => word.length > 0).length;
+            
+            if (wordCount > 150) {
+                alert("Please reduce your text to 150 words or less before paraphrasing.");
+                return;
+            }
+
+            // ... rest of the existing code ...
+        });
+    </script>
+</body>
+</html>

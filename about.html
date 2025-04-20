@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="textai-icon" href="Logo1.jpeg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About TextAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a0b34bac05.js" crossorigin="anonymous"></script>
+
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #2d3436;
+            line-height: 1.1;
+            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Navigation Styling */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #080808 0%, #1a1a1a 100%);
+            color: #ffffff;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        nav .menu-bar {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        nav .menu-bar:hover {
+            transform: scale(1.1);
+        }
+
+        nav .menu-bar i {
+            color: #ffffff;
+        }
+
+        nav .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 auto;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: rotate(360deg);
+        }
+
+        /* Dashboard Menu */
+        .dropdown-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            height: 100vh;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            color: #f1f4f7;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+            z-index: 150;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .dropdown-menu.active {
+            left: 0;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dropdown-menu a:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            transition: height 0.3s ease;
+            z-index: -1;
+        }
+
+        .dropdown-menu a:hover:before {
+            height: 100%;
+        }
+
+        .dropdown-menu a:hover {
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+            color: #2d3436;
+            font-weight: 600;
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .menu-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #ffffff;
+            padding: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 200;
+        }
+
+        header {
+            background: linear-gradient(135deg, #080808 0%, #1a1a1a 100%);
+            color: #ffffff;
+            padding: 1px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Text Animation */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            animation: fadeInUp 1.5s ease-out forwards;
+        }
+
+        h2 {
+            margin-top: 30px;
+            font-size: 2rem;
+            color: #2d3436;
+            font-weight: 600;
+            animation: fadeInUp 2s ease-out forwards;
+            position: relative;
+            display: inline-block;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #0984e3, transparent);
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: #2d3436;
+            animation: fadeInUp 2.5s ease-out forwards;
+            line-height: 1.8;
+        }
+
+        ul {
+            font-size: 1.1rem;
+            color: #2d3436;
+            animation: fadeInUp 3s ease-out forwards;
+            list-style-type: none;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin: 20px 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+            padding: 15px;
+            position: relative;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        li:before {
+            content: '→';
+            position: absolute;
+            left: -5px;
+            color: #0984e3;
+            font-size: 1.2em;
+        }
+
+        a {
+            color: #0984e3;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #0652DD;
+            text-decoration: none;
+            transform: translateX(5px);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #080808 0%, #1a1a1a 100%);
+            color: #ffffff;
+            animation: fadeInUp 3.5s ease-out forwards;
+        }
+
+        /* Container Styling */
+        .container {
+            max-width: 100%;
+            margin: 80px auto;
+            padding: 40px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-20px);
+            animation: fadeInUp 1.8s ease-out forwards;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        /* Image Styling */
+        .about-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s ease;
+        }
+
+        .image-text {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .image-text:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-text p {
+            width: 100%;
+            font-size: 1.2rem;
+            color: #2d3436;
+            text-align: center;
+        }
+
+        .image-text img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s ease;
+        }
+
+        .image-text img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-textai {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-left: 15px;
+            background: linear-gradient(135deg, #ffffff, #e6e6e6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Toggle Menu Button -->
+        <nav>
+            <div class="menu-bar" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+            <div class="logo">
+                <img src="Logo (1).png" alt="Logo" class="logo-img">
+                <div class="header-textai">About Us</div>
+            </div>
+        </nav>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="Home.html"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="ContactUs.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+            <a href="summarize.html"><i class="fa-brands fa-readme"></i> Summarizer</a>
+            <a href="paraphrase.html"><i class="fa-solid fa-pen-to-square"></i> Paraphrase</a>
+            <a href="feedback.html"><i class="fa-regular fa-comment"></i> Feedback</a>
+        </div>
+
+        
+    </header>
+
+    <div class="container">
+        <!-- First Image and Paragraph -->
+        <div class="image-text">
+            <img src="https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="AI Tools" class="about-image">
+            <p>
+                TextAI specializes in two powerful AI tools designed to enhance your productivity with text: the Summarizer and the Paraphraser. Our Summarizer quickly condenses long articles, reports, or essays into concise summaries, saving you time and effort. The Paraphraser rewords and restructures text to improve clarity, avoid duplication, or adapt content to a different style or tone. Both tools are easy to use, efficient, and tailored to streamline your writing tasks.
+            </p>
+        </div>
+
+        <!-- Second Image and Paragraph -->
+        <div class="image-text">
+            <img src="https://images.pexels.com/photos/714701/pexels-photo-714701.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Time management" class="about-image">
+            <p>
+                TextAI offers a powerful Summarizer and Paraphraser, designed specifically to help users condense lengthy content and reword text for improved clarity and style. Whether you're looking to shorten long articles or create a unique version of a document, TextAI provides the necessary tools for both tasks with ease and precision.
+            </p>
+        </div>
+
+        <!-- Third Image and Paragraph -->
+        <div class="image-text">
+            <img src="https://media.istockphoto.com/id/1218220968/photo/the-text-why-on-white-paper-on-red-background.jpg?b=1&s=612x612&w=0&k=20&c=MsydQGSwG-G5KL3Otb8R8G_TW53peY_qUyauf-5tW0g=" alt="Question mark" class="about-image">
+            <p>
+                Whether you need to create summaries or paraphrase your content, TextAI's tools are designed to make the process effortless. The Summarizer helps you focus on essential information by distilling the main points of any document, while the Paraphraser ensures your content is reworded effectively to suit your specific needs.
+            </p>
+        </div>
+
+        <h2>What We Offer</h2>
+        <ul>
+            <li><strong>Summarizer:</strong> Quickly condense articles, reports, or essays into concise summaries.</li>
+            <li><strong>Paraphraser:</strong> Rephrase text to improve readability or avoid duplication.</li>
+        </ul>
+
+        <h2>Why Choose Us?</h2>
+        <p>
+            TextAI focuses on text manipulation tasks—summarization and paraphrasing—providing users with simple, effective, and AI-powered tools to optimize their text-based workflows. Whether you're a student, writer, or professional, our solutions help save time and enhance your productivity.
+        </p>
+    </div>
+
+    <footer>
+        &copy; 2025 TextAI. All rights reserved.
+    </footer>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('dropdownMenu');
+            const menuBar = document.querySelector('.menu-bar');
+            
+            // Only close if click is outside menu AND not on menu bar
+            if (!menu.contains(e.target) && !menuBar.contains(e.target)) {
+                menu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
