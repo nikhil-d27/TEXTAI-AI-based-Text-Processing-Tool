@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <link rel="shortcut icon" type="textai-icon" href="Logo1.jpeg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TextAI Summarizer</title>
+    <title>TextAI</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://kit.fontawesome.com/a0b34bac05.js" crossorigin="anonymous"></script>
@@ -294,6 +295,66 @@
             padding: 20px;
             color: #0a0a0a;
         }
+
+        @media screen and (max-width: 768px) {
+            nav {
+                padding: 15px;
+            }
+
+            .logo-img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .dropdown-menu {
+                width: 250px;
+            }
+
+            .login-btn, .logout-btn {
+                padding: 6px 15px;
+                font-size: 14px;
+            }
+
+            .profile-section {
+                right: 15px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .dropdown-menu {
+                width: 200px;
+            }
+
+            .profile-icon {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        @media (hover: none) {
+            .dropdown-menu a {
+                padding: 15px;
+                min-height: 44px;
+            }
+
+            button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -390,6 +451,39 @@
         }
 
         window.addEventListener('load', checkLoginStatus);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            document.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+            
+            document.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+            
+            function handleSwipe() {
+                const menu = document.getElementById('dropdownMenu');
+                const swipeDistance = touchEndX - touchStartX;
+                
+                if (Math.abs(swipeDistance) > 50) {
+                    if (swipeDistance > 0) {
+                        menu.classList.add('active');
+                    } else {
+                        menu.classList.remove('active');
+                    }
+                }
+            }
+
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('touchend', e => {
+                    e.preventDefault();
+                });
+            });
+        });
     </script>
 </body>
 </html>

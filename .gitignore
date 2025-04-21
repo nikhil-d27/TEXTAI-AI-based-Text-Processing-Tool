@@ -41,11 +41,24 @@ models--*/
 *.sqlite
 *.db
 
-# Media files (optional, uncomment if you want to ignore)
-# *.mp4
-# *.jpeg
-# *.png
+# Specific project files
+server.py
+server1.py
+Parapharse.csv
+
+# Media and assets (keep these files in git)
+# info.mp4
+# Logo (1).png
+# Logo1.jpeg
 
 # System Files
 .DS_Store
 Thumbs.db
+
+# Git files
+.git/
+.gitattributes
+
+# Temporary files
+*.tmp
+*.temp

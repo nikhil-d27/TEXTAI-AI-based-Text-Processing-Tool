@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <link rel="shortcut icon" type="textai-icon" href="Logo1.jpeg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TextAI Feedback</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>TextAI - Feedback</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://kit.fontawesome.com/a0b34bac05.js" crossorigin="anonymous"></script>
     <style>
@@ -230,6 +231,134 @@
             color: white;
             margin-top: 50px;
         }
+        /* Add the responsive CSS here */
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                margin-top: 80px;
+                padding: 10px;
+                width: 95%;
+            }
+            /* ... rest of the responsive CSS ... */
+        }
+        /* ... rest of the media queries ... */
+
+        /* Add these responsive styles */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 15px;
+                width: 95%;
+            }
+
+            .feedback-form {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            label {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            textarea {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            textarea {
+                height: 120px;
+            }
+
+            .rating-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .star-rating {
+                gap: 10px;
+            }
+
+            .star {
+                font-size: 24px;
+            }
+
+            button {
+                width: 100%;
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 10px;
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .feedback-form {
+                padding: 15px;
+            }
+
+            label {
+                font-size: 13px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            textarea {
+                font-size: 13px;
+            }
+
+            .star {
+                font-size: 20px;
+            }
+
+            .success-message,
+            .error-message {
+                font-size: 13px;
+                padding: 8px;
+            }
+        }
+
+        /* Touch improvements */
+        @media (hover: none) {
+            input[type="text"],
+            input[type="email"],
+            textarea,
+            button {
+                min-height: 44px;
+            }
+
+            .star {
+                padding: 8px;
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Improve touch target size for form elements */
+            label {
+                padding: 5px 0;
+                display: inline-block;
+            }
+        }
     </style>
 </head>
 <body>
@@ -311,6 +440,50 @@
                 submitButton.innerHTML = originalButtonText;
             });
         }
+
+        // Add this responsive JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent zoom on double tap for interactive elements
+            const interactiveElements = document.querySelectorAll('button, input, textarea, .star');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchend', (e) => {
+                    if (element.tagName.toLowerCase() === 'button') {
+                        e.preventDefault();
+                        element.click();
+                    }
+                });
+            });
+
+            // Improve star rating touch interaction
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    const rating = this.getAttribute('data-rating');
+                    updateStarRating(rating);
+                });
+            });
+
+            // Handle form submission on mobile
+            const form = document.querySelector('.feedback-form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Add visual feedback for form submission
+                const submitButton = this.querySelector('button[type="submit"]');
+                submitButton.style.opacity = '0.7';
+                submitButton.textContent = 'Submitting...';
+                
+                // Your existing form submission logic
+                // ... (keep your existing form submission code) ...
+            });
+
+            // Adjust textarea height automatically
+            const textarea = document.querySelector('textarea');
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+            });
+        });
     </script>
 </body>
 </html>

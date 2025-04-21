@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <link rel="shortcut icon" type="textai-icon" href="Logo1.jpeg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - TextAI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>TextAI - Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://kit.fontawesome.com/a0b34bac05.js" crossorigin="anonymous"></script>
     <style>
@@ -174,6 +175,164 @@
             bottom: 0;
             width: 100%;
         }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 15px;
+                width: 90%;
+                max-width: none;
+            }
+
+            .register-form {
+                padding: 20px;
+            }
+
+            .logo-container {
+                margin-bottom: 20px;
+            }
+
+            .logo-img {
+                width: 60px;
+                height: 60px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            label {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="password"] {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .password-toggle {
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 16px;
+            }
+
+            button {
+                width: 100%;
+                padding: 12px;
+                font-size: 14px;
+                margin-top: 15px;
+            }
+
+            .login-link {
+                font-size: 14px;
+                margin-top: 15px;
+            }
+
+            .password-requirements {
+                font-size: 12px;
+                margin-top: 5px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 10px;
+                width: 95%;
+            }
+
+            .register-form {
+                padding: 15px;
+            }
+
+            .logo-img {
+                width: 50px;
+                height: 50px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            label {
+                font-size: 13px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="password"] {
+                font-size: 13px;
+            }
+
+            .password-toggle {
+                font-size: 14px;
+            }
+
+            .error-message {
+                font-size: 13px;
+                padding: 8px;
+            }
+
+            .login-link {
+                font-size: 13px;
+            }
+
+            .password-requirements {
+                font-size: 11px;
+            }
+        }
+
+        @media (hover: none) {
+            input[type="text"],
+            input[type="email"],
+            input[type="password"],
+            button {
+                min-height: 44px;
+            }
+
+            .password-toggle {
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            label {
+                padding: 5px 0;
+                display: inline-block;
+            }
+
+            .login-link a {
+                padding: 5px;
+                display: inline-block;
+            }
+        }
+
+        .password-strength-meter {
+            height: 4px;
+            background: #ddd;
+            margin-top: 5px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .password-strength-meter div {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        .strength-weak { background: #ff4444; }
+        .strength-medium { background: #ffbb33; }
+        .strength-strong { background: #00C851; }
     </style>
 </head>
 <body>
@@ -313,6 +472,98 @@
             .catch(error => {
                 console.error('Error:', error);
                 alert('Registration failed. Please try again.');
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const interactiveElements = document.querySelectorAll('button, input, .password-toggle, a');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchend', (e) => {
+                    if (element.tagName.toLowerCase() === 'button') {
+                        e.preventDefault();
+                        element.click();
+                    }
+                });
+            });
+
+            const form = document.querySelector('.register-form form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const submitButton = this.querySelector('button[type="submit"]');
+                submitButton.style.opacity = '0.7';
+                submitButton.textContent = 'Creating Account...';
+                
+                const userData = {
+                    username: document.getElementById('username').value,
+                    email: document.getElementById('email').value,
+                    password: document.getElementById('password').value
+                };
+
+                fetch('http://localhost:3001/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        alert('Registration successful!');
+                        window.location.href = 'login.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Registration failed. Please try again.');
+                });
+            });
+
+            const passwordToggles = document.querySelectorAll('.password-toggle');
+            passwordToggles.forEach(toggle => {
+                toggle.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    const passwordInput = this.previousElementSibling;
+                    const type = passwordInput.getAttribute('type');
+                    passwordInput.setAttribute('type', type === 'password' ? 'text' : 'password');
+                    this.innerHTML = type === 'password' ? '👁️' : '👁️‍🗨️';
+                });
+            });
+
+            const passwordInput = document.querySelector('input[name="password"]');
+            const strengthMeter = document.querySelector('.password-strength-meter div');
+            
+            passwordInput.addEventListener('input', function() {
+                const strength = checkPasswordStrength(this.value);
+                updateStrengthMeter(strength);
+            });
+
+            function checkPasswordStrength(password) {
+                let strength = 0;
+                if (password.length >= 8) strength++;
+                if (password.match(/[A-Z]/)) strength++;
+                if (password.match(/[0-9]/)) strength++;
+                if (password.match(/[^A-Za-z0-9]/)) strength++;
+                return strength;
+            }
+
+            function updateStrengthMeter(strength) {
+                strengthMeter.className = '';
+                strengthMeter.style.width = (strength * 25) + '%';
+                if (strength >= 3) strengthMeter.classList.add('strength-strong');
+                else if (strength >= 2) strengthMeter.classList.add('strength-medium');
+                else strengthMeter.classList.add('strength-weak');
+            }
+
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    setTimeout(() => {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                });
             });
         });
     </script>

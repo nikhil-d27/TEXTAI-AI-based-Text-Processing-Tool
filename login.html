@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <link rel="shortcut icon" type="textai-icon" href="Logo1.jpeg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - TextAI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>TextAI - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://kit.fontawesome.com/a0b34bac05.js" crossorigin="anonymous"></script>
     <style>
@@ -172,6 +173,147 @@
             bottom: 0;
             width: 100%;
         }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 15px;
+                width: 90%;
+                max-width: none;
+            }
+
+            .login-form {
+                padding: 20px;
+            }
+
+            .logo-container {
+                margin-bottom: 20px;
+            }
+
+            .logo-img {
+                width: 60px;
+                height: 60px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            label {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+
+            input[type="email"],
+            input[type="password"] {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .password-toggle {
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 16px;
+            }
+
+            button {
+                width: 100%;
+                padding: 12px;
+                font-size: 14px;
+                margin-top: 15px;
+            }
+
+            .register-link {
+                font-size: 14px;
+                margin-top: 15px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 10px;
+                width: 95%;
+            }
+
+            .login-form {
+                padding: 15px;
+            }
+
+            .logo-img {
+                width: 50px;
+                height: 50px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            label {
+                font-size: 13px;
+            }
+
+            input[type="email"],
+            input[type="password"] {
+                font-size: 13px;
+            }
+
+            .password-toggle {
+                font-size: 14px;
+            }
+
+            .error-message {
+                font-size: 13px;
+                padding: 8px;
+            }
+
+            .register-link {
+                font-size: 13px;
+            }
+        }
+
+        @media (hover: none) {
+            input[type="email"],
+            input[type="password"],
+            button {
+                min-height: 44px;
+            }
+
+            .password-toggle {
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            label {
+                padding: 5px 0;
+                display: inline-block;
+            }
+
+            .register-link a {
+                padding: 5px;
+                display: inline-block;
+            }
+        }
+
+        .password-strength {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #666;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .password-strength {
+                font-size: 11px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -260,6 +402,48 @@
 
             return false; // Prevent form submission
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const interactiveElements = document.querySelectorAll('button, input, .password-toggle, a');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchend', (e) => {
+                    if (element.tagName.toLowerCase() === 'button') {
+                        e.preventDefault();
+                        element.click();
+                    }
+                });
+            });
+
+            const form = document.querySelector('.login-form form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const submitButton = this.querySelector('button[type="submit"]');
+                submitButton.style.opacity = '0.7';
+                submitButton.textContent = 'Logging in...';
+                
+                // Your existing form submission logic
+                // ... (keep your existing form submission code) ...
+            });
+
+            const passwordToggle = document.querySelector('.password-toggle');
+            const passwordInput = document.querySelector('input[type="password"]');
+            
+            passwordToggle.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                const type = passwordInput.getAttribute('type');
+                passwordInput.setAttribute('type', type === 'password' ? 'text' : 'password');
+                this.innerHTML = type === 'password' ? '👁️' : '👁️‍🗨️';
+            });
+
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    setTimeout(() => {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                });
+            });
+        });
     </script>
 </body>
 </html>

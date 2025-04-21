@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <link rel="shortcut icon" type="textai-icon" href="Logo1.jpeg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Paraphraser</title>
+    <title>TextAI - Paraphrase</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a0b34bac05.js" crossorigin="anonymous"></script>
     <style>
@@ -384,6 +385,87 @@
             border-color: #e74c3c;
             font-size: 14px; /* Make text smaller when exceeded */
         }
+
+        /* Add the responsive CSS here */
+        @media screen and (max-width: 768px) {
+            /* Container adjustments */
+            .container {
+                flex-direction: column;
+                margin-top: 80px;
+                padding: 10px;
+                width: 95%;
+            }
+            /* ... rest of the responsive CSS ... */
+        }
+        /* ... rest of the media queries ... */
+
+        /* Add these responsive styles */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 10px;
+                flex-direction: column;
+            }
+
+            .input-section, .output-section {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            textarea {
+                height: 200px;
+                font-size: 14px;
+            }
+
+            .word-count {
+                font-size: 12px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            button {
+                width: 100%;
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .loading {
+                font-size: 14px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            textarea {
+                height: 150px;
+                font-size: 13px;
+            }
+
+            .word-count {
+                font-size: 11px;
+            }
+
+            .changed-word {
+                font-size: 13px;
+            }
+        }
+
+        /* Touch improvements */
+        @media (hover: none) {
+            button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            textarea {
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -641,6 +723,37 @@ window.addEventListener('load', async () => {
     if (!serverRunning) {
         alert('Server not running or dictionary not loaded. Please ensure the server is started properly.');
     }
+});
+
+// Add this responsive JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // Prevent zoom on double tap for interactive elements
+    const interactiveElements = document.querySelectorAll('button, textarea');
+    interactiveElements.forEach(element => {
+        element.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            if (element.tagName.toLowerCase() === 'button') {
+                element.click();
+            }
+        });
+    });
+
+    // Adjust textarea height on input
+    const textareas = document.querySelectorAll('textarea');
+    textareas.forEach(textarea => {
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+    });
+
+    // Handle orientation change
+    window.addEventListener('orientationchange', function() {
+        textareas.forEach(textarea => {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        });
+    });
 });
 </script>
 </body>

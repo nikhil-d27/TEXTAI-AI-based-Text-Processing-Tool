@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <link rel="shortcut icon" type="textai-icon" href="Logo1.jpeg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About TextAI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>TextAI - About Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a0b34bac05.js" crossorigin="anonymous"></script>
 
     <style>
@@ -331,6 +332,194 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* Add the responsive CSS here */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .about-section {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .about-content,
+            .about-image {
+                width: 100%;
+            }
+
+            .about-image {
+                margin-top: 20px;
+                order: -1; /* Move image to top on mobile */
+            }
+
+            .about-image img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+                margin: 15px 0;
+            }
+
+            p {
+                font-size: 14px;
+                line-height: 1.6;
+                margin-bottom: 15px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin-top: 20px;
+            }
+
+            .feature-card {
+                padding: 15px;
+            }
+
+            .feature-icon {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+
+            .feature-title {
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+
+            .feature-description {
+                font-size: 13px;
+            }
+
+            .team-section {
+                padding: 20px;
+                margin-top: 20px;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .team-member {
+                padding: 15px;
+            }
+
+            .member-image {
+                width: 80px;
+                height: 80px;
+            }
+
+            .member-name {
+                font-size: 14px;
+                margin: 8px 0;
+            }
+
+            .member-role {
+                font-size: 12px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .about-section,
+            .team-section {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            p {
+                font-size: 13px;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 12px;
+            }
+
+            .feature-icon {
+                font-size: 20px;
+            }
+
+            .feature-title {
+                font-size: 15px;
+            }
+
+            .feature-description {
+                font-size: 12px;
+            }
+
+            .member-image {
+                width: 70px;
+                height: 70px;
+            }
+        }
+
+        /* Touch improvements */
+        @media (hover: none) {
+            .feature-card,
+            .team-member {
+                transition: none;
+            }
+
+            .feature-card:active,
+            .team-member:active {
+                transform: translateY(2px);
+            }
+
+            /* Improve touch targets */
+            .feature-card,
+            .team-member {
+                min-height: 44px;
+                padding: 15px;
+            }
+
+            /* Add touch feedback */
+            .feature-card:active,
+            .team-member:active {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+        }
+
+        /* Animation optimizations for mobile */
+        @media (prefers-reduced-motion: reduce) {
+            .feature-card,
+            .team-member,
+            .about-image img {
+                animation: none;
+                transition: none;
+            }
+        }
+
+        /* Lazy loading for images */
+        .lazy-image {
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+
+        .lazy-image.loaded {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -411,6 +600,68 @@
             if (!menu.contains(e.target) && !menuBar.contains(e.target)) {
                 menu.classList.remove('active');
             }
+        });
+
+        // Add this responsive JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lazy loading for images
+            const images = document.querySelectorAll('img[data-src]');
+            const imageOptions = {
+                threshold: 0.1,
+                rootMargin: '50px 0px'
+            };
+
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            }, imageOptions);
+
+            images.forEach(img => imageObserver.observe(img));
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Feature cards touch interaction
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'translateY(2px)';
+                });
+                card.addEventListener('touchend', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Performance optimization for animations
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (reducedMotion.matches) {
+                document.documentElement.style.setProperty('--animation-duration', '0s');
+            }
+
+            // Handle orientation change
+            window.addEventListener('orientationchange', function() {
+                // Reset any necessary layouts
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 100);
+            });
         });
     </script>
 </body>

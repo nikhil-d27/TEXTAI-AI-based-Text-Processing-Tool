@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <link rel="shortcut icon" type="textai-icon" href="Logo1.jpeg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - TextAI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://kit.fontawesome.com/a0b34bac05.js" crossorigin="anonymous"></script>
+    <title>TextAI - Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         /* General Reset */
         * {
@@ -250,6 +249,155 @@
             color: white;
             margin-top: 50px;
         }
+
+        /* Add these responsive styles */
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .contact-info,
+            .contact-form {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            .contact-info {
+                padding: 20px;
+            }
+
+            .contact-form {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .info-item {
+                margin: 15px 0;
+            }
+
+            .info-item i {
+                font-size: 20px;
+                margin-right: 10px;
+            }
+
+            .info-text {
+                font-size: 14px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            label {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            textarea {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            textarea {
+                height: 120px;
+            }
+
+            button {
+                width: 100%;
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .social-links {
+                gap: 15px;
+            }
+
+            .social-links a {
+                font-size: 20px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            .contact-info,
+            .contact-form {
+                padding: 15px;
+            }
+
+            .info-item i {
+                font-size: 18px;
+            }
+
+            .info-text {
+                font-size: 13px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            textarea {
+                font-size: 13px;
+            }
+
+            .social-links a {
+                font-size: 18px;
+            }
+
+            .success-message,
+            .error-message {
+                font-size: 13px;
+                padding: 8px;
+            }
+        }
+
+        /* Touch improvements */
+        @media (hover: none) {
+            input[type="text"],
+            input[type="email"],
+            textarea,
+            button {
+                min-height: 44px;
+            }
+
+            .social-links a {
+                padding: 10px;
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .info-item {
+                padding: 5px 0;
+            }
+
+            /* Improve touch target size for form elements */
+            label {
+                padding: 5px 0;
+                display: inline-block;
+            }
+        }
     </style>
 </head>
 <body>
@@ -368,6 +516,47 @@
                 submitButton.disabled = false;
                 submitButton.innerHTML = originalButtonText;
             }
+        });
+
+        // Add this responsive JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent zoom on double tap for interactive elements
+            const interactiveElements = document.querySelectorAll('button, input, textarea, a');
+            interactiveElements.forEach(element => {
+                element.addEventListener('touchend', (e) => {
+                    if (element.tagName.toLowerCase() === 'button') {
+                        e.preventDefault();
+                        element.click();
+                    }
+                });
+            });
+
+            // Handle form submission on mobile
+            const form = document.querySelector('.contact-form form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Add visual feedback for form submission
+                const submitButton = this.querySelector('button[type="submit"]');
+                submitButton.style.opacity = '0.7';
+                submitButton.textContent = 'Sending...';
+                
+                // Your existing form submission logic
+                // ... (keep your existing form submission code) ...
+            });
+
+            // Adjust textarea height automatically
+            const textarea = document.querySelector('textarea');
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+            });
+
+            // Handle phone number tapping on mobile
+            const phoneLink = document.querySelector('.info-item[data-type="phone"] .info-text');
+            phoneLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = `tel:${this.textContent.trim()}`;
+            });
         });
     </script>
 </body>
