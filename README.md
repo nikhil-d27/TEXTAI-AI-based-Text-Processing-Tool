@@ -1,3 +1,1 @@
-"# TEXTAI-FInal1" 
-"# TEXTAI-FInal1" 
-"# TEXTAI-FInal1" 
+TextAI is a web application that provides intelligent text summarization and paraphrasing features. It allows users to generate concise summaries in general or bullet formats and rewrite content with improved clarity. The project uses HTML, CSS, JavaScript for the frontend and Node.js, Python, and MySQL for the backend, ensuring smooth interaction and efficient data handling.
