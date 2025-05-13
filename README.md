@@ -8,7 +8,7 @@ Users can:
 - Generate concise summaries (in general or bullet format)
 - Rewrite content with improved clarity and variation
 
-The app is built using:
+The Web is built using:
 - **Frontend**: HTML, CSS, JavaScript  
 - **Backend**: Node.js, Python  
 - **Database**: MySQL
